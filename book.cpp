@@ -36,13 +36,13 @@ set<string> Book::keywords() const {
     vector<string> tempWords;       
 
     set<string> nameWords = parseStringToWords(convToLower(name_));
-    for(set<string>::iterator it = nameWords.begin(); it != nameWords.end(); ++it) {
-        tempWords.push_back(*it);
+    for(set<string>::iterator ptr = nameWords.begin(); ptr != nameWords.end(); ++ptr) {
+        tempWords.push_back(*ptr);
     }
 
     set<string> authorWords = parseStringToWords(convToLower(author_));
-    for(set<string>::iterator it = authorWords.begin(); it != authorWords.end(); ++it) {
-        tempWords.push_back(*it);
+    for(set<string>::iterator ptr = authorWords.begin(); ptr != authorWords.end(); ++ptr) {
+        tempWords.push_back(*ptr);
     }
 
     tempWords.push_back(isbn_);
