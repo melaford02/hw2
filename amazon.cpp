@@ -1,3 +1,4 @@
+//pasted from vs for running tests
 #include <iostream>
 #include <fstream>
 #include <set>
@@ -9,6 +10,8 @@
 #include "db_parser.h"
 #include "product_parser.h"
 #include "util.h"
+#include "mydatastore.h"
+
 
 using namespace std;
 struct ProdNameSorter {
@@ -29,7 +32,7 @@ int main(int argc, char* argv[])
      * Declare your derived DataStore object here replacing
      *  DataStore type to your derived type
      ****************/
-    DataStore ds;
+    MyDataStore ds;
 
 
 
@@ -99,13 +102,83 @@ int main(int argc, char* argv[])
                 }
                 done = true;
             }
-	    /* Add support for other commands here */
+            /* Add support for other commands here */
+
+
+            else if (cmd == "ADD") {
+                string username;
+                int productNum;
+
+                if(!(ss >> username)){
+                    cout << "Invalid request" << endl;
+                    continue;
+                }
+
+                if(!(ss >> productNum)){
+                    cout << "Invalid request" << endl;
+                    continue;
+                }
+
+                string extra;
+                if(ss >> extra){
+                    cout << "Invalid request" << endl;;
+                    continue;
+                }
+
+                if(hits.empty()){
+                    cout << "Invalid request" << endl;
+                    continue;
+                }
 
 
 
+                if(productNum < 1){
+                    cout << "Invalid request" << endl;
+                    continue;
+                }
+
+                int numHits = hits.size();
+
+                if(productNum > numHits){
+                    cout << "Invalid request" << endl;
+                    continue;
+                }
+
+                if(!ds.userExists(username)){
+                    cout << "Invalid request" << endl;
+                    continue;
+                }
+
+                int realIndex = productNum - 1;
+                Product* productToAdd = hits[realIndex];
+                ds.addToCart(username, productToAdd);
+            }
+            else if(cmd == "VIEWCART") {
+                string username;
+                ss >> username;
+
+                if(ss.fail()) {
+                    cout << "Invalid username" << endl;
+                }
+                else {
+                    ds.viewCart(username);
+                }       
+
+            }
+            else if(cmd == "BUYCART") {
+                string username;
+                ss >> username;
+
+                if(ss.fail()) {
+                    cout << "Invalid username" << endl;
+                }
+                else {
+                    ds.buyCart(username);
+                }
+            }
 
             else {
-                cout << "Unknown command" << endl;
+                cout << "Invalid request" << endl;
             }
         }
 

@@ -1,3 +1,5 @@
+//pasted from vscode to run tests
+
 #include <iostream>
 #include <sstream>
 #include "product_parser.h"
@@ -130,8 +132,16 @@ std::string ProductBookParser::categoryID()
  */
 Product* ProductBookParser::makeProduct()
 {
+    string category = "book";
+    string name = prodName_;
+    double cost = price_;
+    int quantity = qty_;
+    string code = isbn_;
+    string writer = author_;
 
+    Book* newBook = new Book(category, name, cost, quantity, code, writer);
 
+    return newBook;
 }
 
 
@@ -185,8 +195,16 @@ std::string ProductClothingParser::categoryID()
  */
 Product* ProductClothingParser::makeProduct()
 {
+    string category = "clothing";
+    string name = prodName_;
+    double cost = price_;
+    int quantity = qty_;
+    string sz = size_;
+    string br = brand_;
 
+    Clothing* newClothing = new Clothing(category, name, cost, quantity, sz, br);
 
+    return newClothing;
 
 }
 
@@ -245,6 +263,14 @@ std::string ProductMovieParser::categoryID()
  */
 Product* ProductMovieParser::makeProduct()
 {
+    string category = "movie";
+    string name = prodName_;
+    double cost = price_;
+    int quantity = qty_;
+    string gen = genre_;
+    string rate = rating_;
 
+    Movie* newMovie = new Movie(category, name, cost, quantity, gen, rate);
 
+    return newMovie;
 }

@@ -1,3 +1,5 @@
+//pasted from vscode to run tests
+
 #include <iostream>
 #include <sstream>
 #include <cctype>
@@ -15,16 +17,41 @@ std::string convToLower(std::string src)
     to a set of words based on the criteria given in the assignment **/
 std::set<std::string> parseStringToWords(string rawWords)
 {
+    set<string> keywords;   
+    string currentWord = ""; //keep track of the letters
 
+    for(int i = 0; i < (int)rawWords.size(); i++) 
+    {
+        char letter = rawWords[i];
 
+        char lowerLetter = tolower(letter);
 
+        //cout << "checking char: " << lowerLetter << endl;
 
+        if(isalnum(lowerLetter)) 
+        {
+            currentWord = currentWord + lowerLetter;
+        }
+        else 
+        {
+            if(currentWord.size() >= 2) 
+            {
+            keywords.insert(currentWord);
+            }
+            // reset to start a new word
+            currentWord = "";
+        }
+    }
 
+    if(currentWord.size() >= 2) 
+    {
+        keywords.insert(currentWord);
+    }
 
+    //1 letter words?
 
-
-
-
+    return keywords;
+   
 }
 
 /**************************************************

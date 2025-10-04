@@ -1,3 +1,4 @@
+//pasted from vscode to run tests
 #ifndef UTIL_H
 #define UTIL_H
 
@@ -5,45 +6,92 @@
 #include <iostream>
 #include <set>
 
+using namespace std;
 
 /** Complete the setIntersection and setUnion functions below
  *  in this header file (since they are templates).
  *  Both functions should run in time O(n*log(n)) and not O(n^2)
  */
 template <typename T>
-std::set<T> setIntersection(std::set<T>& s1, std::set<T>& s2)
+set<T> setIntersection(const set<T>& s1, const set<T>& s2)
 {
+    set<T> answer;
 
+    typename set<T>::iterator first = s1.begin();
+    typename set<T>::iterator second = s2.begin();
 
+    while(first != s1.end() && second != s2.end())
+    {
+        T val1 = *first;
+        T val2 = *second;
 
+        if(val1 == val2) {
+            answer.insert(val1);
+            ++first;
+            ++second;
+        }
+        else if(val1 < val2) {
+            ++first;
+        }
+        else {
+            ++second;
+        }
+    }
 
-
+    return answer;
 }
+
 template <typename T>
-std::set<T> setUnion(std::set<T>& s1, std::set<T>& s2)
+set<T> setUnion(const set<T>& s1, const set<T>& s2)
 {
+    set<T> answer;
 
+    typename set<T>::iterator first = s1.begin();
+    typename set<T>::iterator second = s2.begin();
 
+    while(first != s1.end() && second != s2.end())
+    {
+        T val1 = *first;
+        T val2 = *second;
 
+        if(val1 == val2) {
+            answer.insert(val1);
+            ++first;
+            ++second;
+        }
+        else if(val1 < val2) {
+            answer.insert(val1);
+            ++first;
+        }
+        else {
+            answer.insert(val2);
+            ++second;
+        }
+    }
 
+    while(first != s1.end()) {
+        answer.insert(*first);
+        ++first;
+    }
 
+    while(second != s2.end()) {
+        answer.insert(*second);
+        ++second;
+    }
+
+    return answer;
 }
 
 /***********************************************/
 /* Prototypes of functions defined in util.cpp */
 /***********************************************/
-
 std::string convToLower(std::string src);
 
 std::set<std::string> parseStringToWords(std::string line);
 
-// Used from http://stackoverflow.com/questions/216823/whats-the-best-way-to-trim-stdstring
-// Removes any leading whitespace
 std::string &ltrim(std::string &s) ;
-
-// Removes any trailing whitespace
 std::string &rtrim(std::string &s) ;
-
-// Removes leading and trailing whitespace
 std::string &trim(std::string &s) ;
+
 #endif
+
